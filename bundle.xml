@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<adapt_framework>
+    <bundle>
+        <label>Adapt Database File Storage</label>
+        <name>storage_database</name>
+        <version>1.0.0</version>
+        <type>extension</type>
+        <namespace>\adapt\storage_database</namespace>
+        <description>Store files in a database</description>
+        <copyright>2016 Adapt Framework</copyright>
+        <license>MIT</license>
+        <website>http://www.adaptframework.com/documentation/adapt/storage_database</website>
+        <depends_on>
+            <bundle>
+                <name>adapt</name>
+                <version>2.0</version>
+            </bundle>
+        </depends_on>
+        <schema>
+            <add>
+                <table name="file">
+                    <field name="file_id" key="primary" auto-increment="Yes" label="File #" data-type="bigint" />
+                    <field name="file_key" label="Key" data-type="varchar" max-length="512" index="Yes" index-size="32" />
+                    <field name="original_filename" label="Original filename" data-type="varchar" max-length="256" />
+                    <field name="mime_type" label="Mime type" data-type="varchar" max-length="128" />
+                    <field name="md5" label="MD5 Checksum" data-type="varchar" max-length="64" />
+                    <field name="file_size" label="File size (b)" data-type="bigint" />
+                    <field name="block_size" label="Block size (b)" data-type="bigint" />
+                </table>
+                <table name="file_block">
+                    <field name="file_block_id" key="primary" auto-increment="Yes" label="File block #" data-type="bigint" />
+                    <field name="file_id" key="foreign" referenced-table-name="file" referenced-field-name="file_id" label="File #" data-type="bigint" />
+                    <field name="priority" label="Priority" data-type="int" index="Yes" />
+                    <field name="block_size" label="Block size (b)" data-type="bigint" />
+                    <field name="data" label="Base64 encoded block data" data-type="longblob" />
+                </table>
+                <table name="file_meta_data">
+                    <field name="file_meta_data_id" key="primary" auto-increment="Yes">
+                        <data_type>bigint</data_type>
+                        <label>Meta data #</label>
+                    </field>
+                    <field name="file_id" key="foreign" referenced-table-name="file" referenced-field-name="file_id">
+                        <data_type>bigint</data_type>
+                        <label>File #</label>
+                    </field>
+                    <field name="name" index="Yes" index-size="32">
+                        <data_type>varchar</data_type>
+                        <max_length>64</max_length>
+                        <nullable>no</nullable>
+                        <label>Key</label>
+                    </field>
+                    <field name="value">
+                        <data_type>text</data_type>
+                        <label>Value</label>
+                    </field>
+                </table>
+            </add>
+        </schema>
+        <settings>
+            <category name="Database file system">
+                <setting>
+                    <name>adapt.storage_database.is_default</name>
+                    <label>Should this be the default file system?</label>
+                    <default_value>No</default_value>
+                    <allowed_values>
+                        <value>Yes</value>
+                        <value>No</value>
+                    </allowed_values>
+                </setting>
+                <setting>
+                    <name>adapt.storage_database.actual_delete</name>
+                    <label>Should deleted files be removed?</label>
+                    <default_value>Yes</default_value>
+                    <allowed_values>
+                        <value>Yes</value>
+                        <value>No</value>
+                    </allowed_values>
+                </setting>
+                <setting>
+                    <name>adapt.storage_database.block_size</name>
+                    <label>What sized chuncks should we break the file into for storage? (Kb)</label>
+                    <default_value>5000</default_value>
+                </setting>
+            </category>
+            <category name="TODO: Database connecton (Leave blank to use the system default)">
+                <setting>
+                    <name>adapt.storage_database.driver</name>
+                    <label>Driver</label>
+                </setting>
+                <setting>
+                    <name>adapt.storage_database.host</name>
+                    <label>Host</label>
+                </setting>
+                <setting>
+                    <name>adapt.storage_database.port</name>
+                    <label>Port</label>
+                </setting>
+                <setting>
+                    <name>adapt.storage_database.schema</name>
+                    <label>Schema</label>
+                </setting>
+                <setting>
+                    <name>adapt.storage_database.username</name>
+                    <label>Username</label>
+                </setting>
+                <setting>
+                    <name>adapt.storage_database.password</name>
+                    <label>Password</label>
+                </setting>
+                <setting>
+                    <name>adapt.storage_database.writable</name>
+                    <label>Writable?</label>
+                </setting>
+            </category>
+        </settings>
+    </bundle>
+</adapt_framework>
