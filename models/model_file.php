@@ -221,7 +221,7 @@ namespace adapt\storage_database{
                     $block->file_id = $this->file_id;
                     $block->block_size = $this->file_size;
                     $block->data = base64_encode($data);
-                    $block->priority = '0';
+                    $block->priority = '1';
                     $block->save();
                     
                     
@@ -329,7 +329,7 @@ namespace adapt\storage_database{
                     }
                 }
                 
-                return null;
+                return $data;
             }
             
         }
