@@ -75,10 +75,13 @@ namespace adapt\storage_database{
         }
         
         public function write_to_file($key, $path = null){
-            $model = new model_file($key, $path);
+            $model = new model_file();
+            if (is_null($path)) $path = TEMP_PATH . $this->get_new_key();
             
             if ($model->load_by_key($key)){
-                return $model->write_to_file($path);
+                if ($model->write_to_file($path)){
+                    return $path;
+                }
             }
             
             $this->error("Invalid file key '{$key}'");

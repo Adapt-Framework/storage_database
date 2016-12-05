@@ -316,7 +316,8 @@ namespace adapt\storage_database{
                                 new sql_cond('date_deleted', sql::IS, new sql_null())
                             )
                         );
-                    
+                    print $sql;
+                    print "\n";
                     $results = $sql->execute()->results();
                     
                     if (count($results) == 1){
@@ -345,7 +346,7 @@ namespace adapt\storage_database{
                     $block_count = $this->get_block_count();
                     
                     for($i = 0; $i < $block_count; $i++){
-                        fwrite($fp, $this->get_block_data($i));
+                        fwrite($fp, $this->get_block_data($i+1));
                     }
                     
                     fclose($fp);
