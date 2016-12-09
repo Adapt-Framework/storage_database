@@ -45,7 +45,7 @@ namespace adapt\storage_database{
                     );
                 
                 /* Get the results */
-                $results = $sql->execute()->results();
+                $results = $sql->execute(0)->results();
                 
                 if (count($results) == 1){
                     $this->trigger(self::EVENT_ON_LOAD_BY_KEY);
@@ -316,8 +316,7 @@ namespace adapt\storage_database{
                                 new sql_cond('date_deleted', sql::IS, new sql_null())
                             )
                         );
-                    print $sql;
-                    print "\n";
+                    
                     $results = $sql->execute()->results();
                     
                     if (count($results) == 1){
