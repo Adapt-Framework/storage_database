@@ -165,6 +165,7 @@ namespace adapt\storage_database{
                             
                             /* Save the block to the database */
                             $block->save();
+                            //print_r($block->errors());die();
                         }
                         
                         /* Close the file */
@@ -187,7 +188,6 @@ namespace adapt\storage_database{
             if ($this->is_loaded){
                 
                 if ($data){
-                    
                     /* Delete any blocks we already have */
                     $sql = $this->data_source->sql;
                     
@@ -224,8 +224,9 @@ namespace adapt\storage_database{
                     $block->priority = '1';
                     $block->save();
                     
-                    
-                    return $this->save();
+                    $return = $this->save();
+                    //print_r($this->errors());
+                    return $return;
                 }else{
                     $this->error("No data provided");
                     return false;

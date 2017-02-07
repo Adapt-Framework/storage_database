@@ -5,7 +5,7 @@ namespace adapt\storage_database{
     /* Prevent Direct Access */
     defined('ADAPT_STARTED') or die;
     
-    class storage_database extends \adapt\base{
+    class storage_database extends \adapt\base implements \adapt\interfaces\storage_file{
         
         protected $_private_data_source;
         
@@ -38,7 +38,7 @@ namespace adapt\storage_database{
             return guid();
         }
         
-        public function set($key, $data, $content_type = null, $public = false){
+        public function set($key, $data, $content_type = null){
             $model_file = new model_file();
             
             $model_file->load_by_key($key);
@@ -49,7 +49,7 @@ namespace adapt\storage_database{
             $model_file->set_data($data);
         }
         
-        public function set_by_file($key, $path, $content_type = null, $public = false){
+        public function set_by_file($key, $path, $content_type = null){
             if (file_exists($path)){
                 
                 $model_file = new model_file();
@@ -147,6 +147,10 @@ namespace adapt\storage_database{
             
             return null;
         }
+        
+        // To satisfy the interface
+        public function get_meta_data_file($key){}
+        public function set_meta_data_file($key, $data){}
     }
     
 }
