@@ -9,9 +9,16 @@
         <version_status>release</version_status>
         <availability>public</availability>
         <description>Store files in a database</description>
-        <copyright>2016 Adapt Framework</copyright>
+        <copyright>2017 Matt Bruton</copyright>
         <license>MIT</license>
-        <website>http://www.adaptframework.com/documentation/adapt/storage_database</website>
+        <vendor>
+            <name>Adapt Framework</name>
+            <website>https://www.adaptframework.com</website>
+        </vendor>
+        <author>
+            <name>Matt Bruton</name>
+            <email>matt.bruton@gmail.com</email>
+        </author>
         <depends_on>
             <bundle>
                 <name>adapt</name>
