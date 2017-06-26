@@ -371,7 +371,7 @@ namespace adapt\storage_database{
             if (is_null($value)){
                 foreach($children as $child){
                     if ($child instanceof \adapt\model && $child->table_name == 'file_meta_data'){
-                        if ($child->name == $key){
+                        if ($child->key_name == $key){
                             return $child->value;
                         }
                     }
@@ -380,7 +380,7 @@ namespace adapt\storage_database{
             }else{
                 foreach($children as $child){
                     if ($child instanceof \adapt\model && $child->table_name == 'file_meta_data'){
-                        if ($child->name == $key){
+                        if ($child->key_name == $key){
                             $child->value = $value;
                             return null;
                         }
@@ -389,7 +389,7 @@ namespace adapt\storage_database{
                 
                 /* We didn't find the setting, so let create a new one */
                 $setting = new model_file_meta_data();
-                $setting->name = $key;
+                $setting->key_name = $key;
                 $setting->value = $value;
                 $this->add($setting);
             }
@@ -402,4 +402,3 @@ namespace adapt\storage_database{
 }
 
 
-?>
